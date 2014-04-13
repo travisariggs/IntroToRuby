@@ -1,5 +1,16 @@
 require 'yaml'
 
+def yaml_save(object, filename)
+  File.open(filename, 'w') do |f|
+    f.write(object.to_yaml)
+  end
+end
+
+def yaml_load(filename)
+  yaml_string = File.read filename
+  YAML::load yaml_string
+end
+
 test_arr = ['Give Quiche a Chance',
             'Mutants Out!',
             42.7,
@@ -13,13 +24,10 @@ test_string = test_hash.to_yaml
 
 puts "test_string: #{test_string}"
 
-filename = 'RimmerTShirts.txt'
-File.open filename, 'w' do |f|
-  f.write test_string
-end
+filename = 'DatasGadgets.txt'
 
-read_string = File.read filename
+yaml_save(test_arr, filename)
 
-read_array = YAML::load read_string
-puts(read_string == test_string)
+read_array = yaml_load filename
+
 puts(read_array == test_arr)
