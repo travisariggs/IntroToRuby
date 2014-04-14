@@ -4,7 +4,7 @@ this_dir = Dir.getwd
 data_dir = 'TestData'
 
 # Create a directory of test files
-if !File.exists? File.join(this_dir, data_dir)
+unless File.exists? File.join(this_dir, data_dir)
   Dir.mkdir(File.join(this_dir, data_dir))
 end
 
@@ -21,7 +21,7 @@ batch_name = gets.chomp
 # Create new directory
 new_dir = File.join(this_dir, batch_name)
 
-if !File.exists? new_dir
+unless File.exists? new_dir
   Dir.mkdir(new_dir)
 end
 
@@ -29,7 +29,7 @@ end
 # Loop through files in directory and rename them
 Dir.foreach(File.join(this_dir, data_dir)) { |file|
 
-  if !['.', '..'].include? file
+  unless ['.', '..'].include? file
 
     puts "Copying #{file}..."
 
@@ -38,7 +38,7 @@ Dir.foreach(File.join(this_dir, data_dir)) { |file|
     basename = file.sub(extension, '')
 
     # Separate the number from the filename
-    base, number = basename.split("-")
+    base, number = basename.split('-')
 
     # Create new filename
     new_name = batch_name + "-" + number + extension
@@ -51,7 +51,7 @@ Dir.foreach(File.join(this_dir, data_dir)) { |file|
     else
 
       File.rename(File.join(this_dir, data_dir, file),
-        File.join(new_dir, new_name))
+                  File.join(new_dir, new_name))
 
     end
 
@@ -60,4 +60,4 @@ Dir.foreach(File.join(this_dir, data_dir)) { |file|
 
 }
 
-puts "All Done!"
+puts 'All Done!'
