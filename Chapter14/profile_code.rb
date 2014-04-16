@@ -1,8 +1,14 @@
+$PROFILING_ON = false
+
 def profile(block_description, &block)
-  start_time = Time.new
-  block.call
-  duration = Time.new - start_time
-  puts "#{block_description}:  #{duration} seconds"
+  if $PROFILING_ON
+    start_time = Time.new
+    block.call
+    duration = Time.new - start_time
+    puts "#{block_description}:  #{duration} seconds"
+  else
+    block.call
+  end
 end
 
 profile '25000 doublings' do
